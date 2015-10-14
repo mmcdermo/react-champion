@@ -1,0 +1,75 @@
+/* Dropdown styling */
+.reactDropdown {
+    position: relative;
+}
+
+.reactDropdownSelected {
+    cursor: pointer;
+}
+
+.reactDropdownSelected:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 3px #E1E1E1;
+}
+.reactDropdown ul {
+    display: none;
+}
+
+.reactDropdown ul.popped {
+  position: absolute;
+  top: calc(100% + 5px);
+  display: block;
+  background-color: white;
+  width: calc(60% + 30px);
+  border-radius: 7px;
+  padding: 7px 0;
+  border: 1px solid #E1E1E1;
+  outline: none;
+  font-size: 1.05em;
+  font-family: Roboto;
+  background-color: white;
+  overflow: hidden;
+  z-index: 5;
+}
+.reactDropdown ul.popped li {
+    padding: 5px;
+    cursor: pointer;
+    font-weight: normal;
+    font-size: 0.85em;
+    padding-left: 12px
+}
+
+.reactDropdown ul.popped li:hover {
+    background-color:#f7f7f7;
+}
+
+/* ButtonGroup styling */
+
+.buttonGroup ul, ul.buttonGroup {
+    border-radius: 3px;
+    background-color:#fafafa;
+    padding: 0;
+    display: -webkit-flex;
+    border: 1px solid #eee;
+    width: 400px;
+}
+
+.buttonGroup li {
+    border-right: 1px solid #ddd;
+    padding: 10px;
+    -webkit-flex: 1;
+    color:#555;
+    cursor: pointer;
+    max-width: 200px;
+    text-align: center;
+    transition: 0.2s all;
+}
+.buttonGroup li.active, .buttonGroup li:hover {
+    background-color:#eee;
+}
+.buttonGroup li:last-child {
+    border-right: 0;
+}
+.buttonGroup li i {
+    margin-right: 4px;
+}
