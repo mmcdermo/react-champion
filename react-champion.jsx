@@ -167,7 +167,6 @@ ReactChampion.Dropdown = React.createClass({
     propTypes: {
         value: React.PropTypes.any,
         channel: React.PropTypes.string,
-        name: React.PropTypes.string,
         options: React.PropTypes.arrayOf(React.PropTypes.shape({
             value: React.PropTypes.any.isRequired,
             display: React.PropTypes.node.isRequired
@@ -358,6 +357,47 @@ ReactChampion.AnimatedTabs = React.createClass({
     }
 });
 
+/* TabbedContent separates content into clickable tabs
+
+   Property overview
+     `default_tab` - Default tab
+     `tabs` - Object of options
+        keys: tab_name
+        values: react DOM node
+     `transitionName` - ReactCSSTransitionGroup transition name
+*/
+ReactChampion.TabbedContent = React.createClass({
+    propTypes: {
+        default_tab: React.PropTypes.string,
+    },
+    getInitialState: function() {
+        return {active_tab: this.props.default_tab,
+               content: this.props.tabs[this.props.default_tab]};
+    },
+    componentDidMount: function() {
+        SimplePubSub.subscribe(this.props.channel, function(newValue){
+            this.setState({active_tab: newValue});
+        }.bind(this));
+    },
+    tabClick: function(idx){
+        this.setState({
+            active_tab: idx,
+            content: this.props.tabs[idx]});
+    },
+    render: function(){
+        var content = this.props.tabs[this.state.active_tab]
+        var tabs = [];
+        for(var idx in this.props.tabs){
+            tabs.push(<li onClick={this.tabClick.bind(this, idx)} className={idx === this.state.active_tab ? "active":""}>{idx}</li>);
+        }
+
+        return <div className='reactChampionTabArea'>
+            <ul className='reactChampionTabs'>{tabs}</ul>
+            {content}
+        </div>
+    }
+});
+
 
 /* SubmitButton provides a button that displays loading/processing state,
    and only allows itself to be clicked once until its state is reset
@@ -508,5 +548,56 @@ ReactChampion.DisplayMaybe = React.createClass({
             </div>;
         }
         else { return <div className="display_maybe_hidden"></div> }
+    }
+});
+
+
+/* Modal provides a simple popup
+
+   Property overview
+     `content` - Content to display
+     `channel` - Name of channel to listen on for "open" or "close" signals
+     `display` - (optional) Condition to display modal
+*/
+ReactChampion.Modal = React.createClass({
+    propTypes: {
+        content: React.PropTypes.node,
+    },
+    getInitialState: function() {
+        return {
+            display: this.props.display,
+        };
+        return {}
+    },
+    componentDidMount: function(){
+        SimplePubSub.subscribe(this.props.channel,
+                               function(state){
+                                   this.setState({display: state});
+                               }.bind(this));
+    },
+    close: function(){
+        SimplePubSub.publish(this.props.channel, "fadeout");
+    },
+    render: function(){
+        var c = "reactChampionModal "+this.state.display;
+        if(this.state.display === "fadein"){
+            setTimeout(function(){
+                this.setState({display: "open"});
+            }.bind(this), 100);
+        }
+
+        if(this.state.display === "fadeout"){
+            setTimeout(function(){
+                this.setState({display: "close"});
+            }.bind(this), 500);
+        }
+
+        return (<div className={c}>
+              <div className="reactChampionModalContent">
+                <div className="reactChampionModalClose" onClick={this.close}>X</div>
+               {this.props.content}
+              </div>
+            </div>)
+
     }
 });

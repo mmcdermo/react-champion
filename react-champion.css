@@ -1,10 +1,19 @@
 /* Dropdown styling */
 .reactDropdown {
     position: relative;
+    display: inline-block;
+    margin-right: 10px;
+
 }
 
 .reactDropdownSelected {
     cursor: pointer;
+    padding: 7px 20px;
+    border: 1px solid #E1E1E1;
+    border-radius: 7px;
+    display: inline-block;
+    background-color: white;
+    min-width: 200px;
 }
 
 .reactDropdownSelected:hover {
@@ -26,7 +35,6 @@
   border: 1px solid #E1E1E1;
   outline: none;
   font-size: 1.05em;
-  font-family: Roboto;
   background-color: white;
   overflow: hidden;
   z-index: 5;
@@ -72,4 +80,96 @@
 }
 .buttonGroup li i {
     margin-right: 4px;
+}
+
+
+/* Tab styling */
+.reactChampionTabs li {
+    display: inline-block;
+    padding: 6px;
+    padding-top: 7px;
+    min-width: 150px;
+    background-color: #F8F8F8;
+    border-bottom: 0px;
+    border-radius: 10px 10px 0px 0px;
+    margin-right: 3px;
+    cursor: pointer;
+    text-align: center;
+    color:#555;
+}
+
+.reactChampionTabs li.active, .analytics_tabs li:hover {
+    background-color:#EEE;
+}
+ul.reactChampionTabs {
+    border-bottom: 1px solid #E3E3E3;
+    text-align: center;
+}
+
+/* Modal styling */
+.reactChampionModal {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color:rgba(0, 0, 0, 0.4);
+    display: none;
+    opacity: 0;
+    transition: 0.5s all;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    -webkit-transform: translate3d(0, 0, 1px);
+}
+
+.reactChampionModal h2 {
+    text-align: center;
+    color:#555;
+    margin-top: 2px;
+}
+.reactChampionModal.fadein {
+    display: block;
+}
+
+.reactChampionModal.open {
+    display: block;
+    opacity: 1.0;
+}
+
+.reactChampionModal.fadeout {
+    display: block;
+    opacity: 0;
+}
+
+.reactChampionModal.close {
+    opacity: 0;
+    display: none;
+}
+
+
+.reactChampionModal .reactChampionModalContent {
+    width: 900px;
+    max-width: 80%;
+    margin: 100px auto;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    max-height: 70%;
+    overflow-y: scroll;
+    height: 60%;
+}
+
+.reactChampionModalClose {
+    float: right;
+    margin-top: -5px;
+    cursor: pointer;
+}
+
+/* Generic styling */
+.reactChampionAddNew {
+    background-color:#fafafa;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
+    padding: 30px;
+    color:#aaa;
 }
